@@ -18,11 +18,10 @@ const CreatePost = () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        const response = await fetch('http://localhost:8080/api/v1/dalle', {
-        // const response = await fetch('https://dalle-arbb.onrender.com/api/v1/dalle', {
-          method: 'POST',
+        const response = await fetch(`${REACT_APP_API_URL}/api/v1/dalle`, {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             prompt: form.prompt,
@@ -37,7 +36,7 @@ const CreatePost = () => {
         setGeneratingImg(false);
       }
     } else {
-      alert('Please provide proper prompt');
+      alert("Please provide proper prompt");
     }
   };
 
@@ -47,26 +46,25 @@ const CreatePost = () => {
     if (form.prompt && form.photo) {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:8080/api/v1/post', {
-
-        // const response = await fetch('https://dalle-arbb.onrender.com/api/v1/post', {
-          method: 'POST',
+        const response = await fetch(`${REACT_APP_API_URL}/api/v1/post`, {
+          // const response = await fetch('https://dalle-arbb.onrender.com/api/v1/post', {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ ...form }),
         });
 
         await response.json();
-        alert('Success');
-        navigate('/');
+        alert("Success");
+        navigate("/");
       } catch (err) {
         alert(err);
       } finally {
         setLoading(false);
       }
     } else {
-      alert('Please generate an image with proper details');
+      alert("Please generate an image with proper details");
     }
   };
 
