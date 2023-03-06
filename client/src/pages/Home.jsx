@@ -24,7 +24,9 @@ const Home = () => {
 
     try {
       const response = await fetch(
-        `https://dall-e-tkfk.onrender.com/api/v1/post`,
+        // `https://dall-e-tkfk.onrender.com/api/v1/post`,
+        `${process.env.REACT_APP_API_URL}/api/v1/post`,
+        
         {
           method: "GET",
           headers: {
