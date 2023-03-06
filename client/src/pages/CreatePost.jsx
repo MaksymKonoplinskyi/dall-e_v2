@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { preview } from "../assets";
 import { getRandomPrompt } from "../utils";
 import { FormField, Loader } from "../components";
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -19,15 +19,18 @@ const CreatePost = () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        const response = await fetch(`https://dall-e-tkfk.onrender.com/api/v1/dalle`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            prompt: form.prompt,
-          }),
-        });
+        const response = await fetch(
+          `https://dall-e-tkfk.onrender.com/api/v1/dalle`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              prompt: form.prompt,
+            }),
+          }
+        );
 
         const data = await response.json();
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
@@ -47,14 +50,17 @@ const CreatePost = () => {
     if (form.prompt && form.photo) {
       setLoading(true);
       try {
-        const response = await fetch(`https://dall-e-tkfk.onrender.com/api/v1/post`, {
-          // const response = await fetch('https://dalle-arbb.onrender.com/api/v1/post', {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...form }),
-        });
+        const response = await fetch(
+          `https://dall-e-tkfk.onrender.com/api/v1/post`,
+          {
+            // const response = await fetch('https://dalle-arbb.onrender.com/api/v1/post', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ...form }),
+          }
+        );
 
         await response.json();
         alert("Success");
@@ -106,6 +112,15 @@ const CreatePost = () => {
             isSurpriseMe
             handleSurpriseMe={handleSurpriseMe}
           />
+          <div className="mt-5 flex gap-5">
+            <button
+              type="button"
+              onClick={generateImage}
+              className=" text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            >
+              {generatingImg ? "Generating..." : "Generate"}
+            </button>
+          </div>
           <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-164 p-3 h-164 flex justify-center items-center">
             {form.photo ? (
               <img
@@ -127,16 +142,6 @@ const CreatePost = () => {
               </div>
             )}
           </div>
-        </div>
-
-        <div className="mt-5 flex gap-5">
-          <button
-            type="button"
-            onClick={generateImage}
-            className=" text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-          >
-            {generatingImg ? "Generating..." : "Generate"}
-          </button>
         </div>
 
         <div className="mt-10">
