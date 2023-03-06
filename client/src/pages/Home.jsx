@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, FormField, Loader } from "../components";
+import * as dotenv from "dotenv";
 
 const RenderCards = ({ data, title }) => {
   if (data?.length > 0) {
@@ -22,12 +23,15 @@ const Home = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${REACT_APP_API_URL}/api/v1/post`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/v1/post`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();
@@ -50,9 +54,13 @@ const Home = () => {
 
     setSearchTimeout(
       setTimeout(() => {
-        const searchResult = allPosts.filter((item) => item.name.toLowerCase().includes(searchText.toLowerCase()) || item.prompt.toLowerCase().includes(searchText.toLowerCase()));
+        const searchResult = allPosts.filter(
+          (item) =>
+            item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.prompt.toLowerCase().includes(searchText.toLowerCase())
+        );
         setSearchedResults(searchResult);
-      }, 500),
+      }, 500)
     );
   };
 
@@ -69,12 +77,12 @@ const Home = () => {
       </div>
       <div className="mt-16">
         <FormField
-        labelName="Search posts"
-        type="text"
-        name="text"
-        placeholder="Search something..."
-        value={searchText}
-        handleChange={handleSearchChange}
+          labelName="Search posts"
+          type="text"
+          name="text"
+          placeholder="Search something..."
+          value={searchText}
+          handleChange={handleSearchChange}
         />
       </div>
       <div className="mt-10">
