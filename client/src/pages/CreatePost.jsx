@@ -112,7 +112,7 @@ const CreatePost = () => {
             isSurpriseMe
             handleSurpriseMe={handleSurpriseMe}
           />
-          <div className="mt-5 flex gap-5">
+          <div className="mt-2 flex gap-5">
             <button
               type="button"
               onClick={generateImage}
